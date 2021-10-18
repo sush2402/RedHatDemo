@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTable, useSortBy, Row } from 'react-table'
 import axios from 'axios'
 
@@ -93,9 +93,6 @@ function App() {
     []
   )
   
-  let data: any = useMemo(() => repoData, [repoData])
-  data = useMemo(() => filterData, [filterData])
-  
 
   const searchRepo = (e: any) => {
     setSearchValue(e.target.value)
@@ -150,7 +147,7 @@ const filters =  (e: any, filterValue: string) => {
         <label>Filter with Description: </label>
         <input type='text' onChange={(e)=> filters(e, 'description')} />
       </div>
-      <Table columns={columns} data={data} />
+      <Table columns={columns} data={filterData.length > 0 ? filterData : repoData} />
     </div>
   )
 }
